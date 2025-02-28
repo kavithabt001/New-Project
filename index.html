@@ -3,84 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARAMM DIGITAL PRESS | High-Quality Printing</title>
+    <title>QR Code Scanner - ARAMM DIGITAL PRESS</title>
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
     <style>
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background: #f8f8f8;
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
         }
-        .logo-title {
-            display: flex;
-            align-items: center;
-        }
-        .logo img {
-            width: 5px; /* Adjust as needed */
-            height: auto;
-            margin-right: 10px;
-        }
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 15px;
+        #reader {
+            width: 300px;
+            margin: auto;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo-title">
-                <img src="LOGO.JPG" alt="ARAMM DIGITAL PRESS">
-                <div class="title">Aramm Digital Press</div>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#offers">Special Offers</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <h2>Scan QR Code</h2>
+    <p>Use your camera to scan the QR code and access product details or order information.</p>
+    <div id="reader"></div>
+    <p id="result"></p>
     
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>High-Quality Digital Printing</h1>
-            <p>Order Acrylic Prints, Wedding Albums, Wood Frames & More!</p>
-            <a href="#products" class="btn">Explore Now</a>
-        </div>
-    </section>
-    
-    <section id="products" class="products">
-        <h2>Our Products</h2>
-        <div class="product-list">
-            <div class="product-item">Acrylic Prints</div>
-            <div class="product-item">Wedding Album Making</div>
-            <div class="product-item">Wood Frames</div>
-        </div>
-    </section>
-    
-    <section id="offers" class="offers">
-        <h2>Special Offers</h2>
-        <p>Free Shipping | Bulk Order Discounts | Studio Retailer Discounts</p>
-    </section>
-    
-    <section id="contact" class="contact">
-        <h2>Contact Us</h2>
-        <p>Email: support@arammdigitalpress.in</p>
-        <p>Phone: +91 9876543210</p>
-    </section>
-    
-    <footer>
-        <p>&copy; 2025 ARAMM DIGITAL PRESS. All rights reserved.</p>
-    </footer>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById('result').innerText = `Scanned: ${decodedText}`;
+            window.location.href = decodedText; // Redirect to scanned URL
+        }
+        
+        function onScanFailure(error) {
+            console.warn(`QR scan error: ${error}`);
+        }
+        
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 }
+        );
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
 </body>
 </html>
